@@ -1,0 +1,189 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    overflow: hidden;
+}
+
+.encabezado {
+    background: linear-gradient(135deg, #0277bd 0%, #01579b 100%);
+    color: white;
+    padding: 24px;
+    text-align: center;
+}
+
+.encabezado h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.encabezado p {
+    opacity: 0.9;
+    font-size: 14px;
+}
+
+.contenido {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 24px;
+}
+
+.panel {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.panel h2 {
+    color: #0277bd;
+    font-size: 18px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #0277bd;
+    padding-bottom: 8px;
+}
+
+.grupo-formulario {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    color: #424242;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+select:focus, input:focus {
+    outline: none;
+    border-color: #0277bd;
+}
+
+.selector-unidades {
+    display: flex;
+    background: #e0e0e0;
+    border-radius: 25px;
+    padding: 4px;
+    margin-bottom: 16px;
+}
+
+.selector-unidades button {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.selector-unidades button.activo {
+    background: #0277bd;
+    color: white;
+}
+
+.visualizacion {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+#svgTanque {
+    max-width: 100%;
+    height: auto;
+}
+
+.resultados {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.resultados h2 {
+    color: #0277bd;
+    margin-bottom: 16px;
+}
+
+.tarjeta-resultado {
+    background: #f8f9fa;
+    border-left: 4px solid #0277bd;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+}
+
+.tarjeta-resultado h3 {
+    color: #0277bd;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.valor-resultado {
+    font-size: 20px;
+    font-weight: bold;
+    color: #212121;
+}
+
+.secundario-resultado {
+    font-size: 12px;
+    color: #757575;
+    margin-top: 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    background: #0277bd;
+    color: white;
+    font-weight: 600;
+}
+
+td {
+    color: #424242;
+}
+
+@media (max-width: 768px) {
+    .contenido {
+        grid-template-columns: 1fr;
+    }
+}

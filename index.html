@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Volumen de Tanques y Líquidos</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="contenedor">
+        <div class="encabezado">
+            <h1>⚙️ Calculadora de Volumen de Tanques y Líquidos</h1>
+            <p>Herramienta profesional para cálculo de medidas en tanques de combustible</p>
+        </div>
+
+        <div class="contenido">
+            <div>
+                <div class="panel">
+                    <h2>Configuración del Tanque</h2>
+                    
+                    <div class="selector-unidades">
+                        <button id="botonMetrico" class="activo">Métrico</button>
+                        <button id="botonImperial">Imperial</button>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label>Geometría del Tanque</label>
+                        <select id="geometria">
+                            <option value="vertical">Cilíndrico Vertical</option>
+                            <option value="horizontal">Cilíndrico Horizontal</option>
+                            <option value="rectangular">Rectangular</option>
+                            <option value="capsula">Cápsula / Elíptico</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-formulario" id="grupoTipoCabezal">
+                        <label>Tipo de Cabezales</label>
+                        <select id="tipoCabezal">
+                            <option value="plano">Planos</option>
+                            <option value="conico">Cónicos</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label>Diámetro (D) - <span id="unidadDim">mm</span></label>
+                        <input type="number" id="diametro" value="2000" step="any">
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label>Altura Total (h) - <span id="unidadAltura">mm</span></label>
+                        <input type="number" id="alturaTotal" value="3000" step="any">
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label>Nivel de Líquido (H) - <span id="unidadNivel">mm</span></label>
+                        <input type="number" id="nivelLiquido" value="1500" step="any">
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label>Densidad (ρ) - <span id="unidadDensidad">gr/cm³</span></label>
+                        <input type="number" id="densidad" value="1.0" step="0.001">
+                    </div>
+                </div>
+
+                <div class="visualizacion">
+                    <svg id="svgTanque" width="240" height="320" viewBox="0 0 240 320">
+                        <defs>
+                            <linearGradient id="gradienteLiquido" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4fc3f7;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#0277bd;stop-opacity:0.9" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <g id="tanqueVertical">
+                            <ellipse id="elipseSupVertical" cx="120" cy="50" rx="50" ry="12" fill="#e0e0e0" stroke="#757575" stroke-width="2"/>
+                            <path id="cabezalSuperior" d="M 70 50 L 120 30 L 170 50" fill="#f5f5f5" stroke="#757575" stroke-width="3" style="display:none"/>
+                            <line x1="70" y1="50" x2="70" y2="250" stroke="#757575" stroke-width="3"/>
+                            <line x1="170" y1="50" x2="170" y2="250" stroke="#757575" stroke-width="3"/>
+                            <ellipse cx="120" cy="250" rx="50" ry="12" fill="#e0e0e0" stroke="#757575" stroke-width="2"/>
+                            <path id="cabezalInferior" d="M 70 250 L 120 270 L 170 250" fill="#f5f5f5" stroke="#757575" stroke-width="3" style="display:none"/>
+                            <ellipse id="elipseLiquidoSuperior" cx="120" cy="150" rx="50" ry="12" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                            <rect id="llenadoLiquido" x="70" y="150" width="100" height="100" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                            <ellipse id="elipseLiquidoInferior" cx="120" cy="250" rx="50" ry="12" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                        </g>
+                        
+                        <g id="tanqueHorizontal" style="display:none">
+                            <ellipse id="cabezalIzquierdoPlano" cx="60" cy="150" rx="15" ry="50" fill="#e0e0e0" stroke="#757575" stroke-width="3"/>
+                            <path id="cabezalIzquierdoConico" d="M 60 100 L 40 150 L 60 200" fill="#f5f5f5" stroke="#757575" stroke-width="3" style="display:none"/>
+                            
+                            <line x1="60" y1="100" x2="180" y2="100" stroke="#757575" stroke-width="3"/>
+                            <line x1="60" y1="200" x2="180" y2="200" stroke="#757575" stroke-width="3"/>
+                            
+                            <ellipse id="cabezalDerechoPlano" cx="180" cy="150" rx="15" ry="50" fill="#e0e0e0" stroke="#757575" stroke-width="3"/>
+                            <path id="cabezalDerechoConico" d="M 180 100 L 200 150 L 180 200" fill="#f5f5f5" stroke="#757575" stroke-width="3" style="display:none"/>
+                            
+                            <rect id="llenadoLiquidoHorizontal" x="60" y="150" width="120" height="50" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                            <ellipse id="elipseLiquidoIzq" cx="60" cy="175" rx="15" ry="25" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                            <ellipse id="elipseLiquidoDer" cx="180" cy="175" rx="15" ry="25" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                        </g>
+                        
+                        <g id="tanqueRectangular" style="display:none">
+                            <rect x="70" y="50" width="100" height="200" fill="#f5f5f5" stroke="#757575" stroke-width="3"/>
+                            <path d="M 70 50 L 90 35 L 190 35 L 170 50 Z" fill="#e0e0e0" stroke="#757575" stroke-width="2"/>
+                            <path d="M 170 50 L 190 35 L 190 235 L 170 250 Z" fill="#d0d0d0" stroke="#757575" stroke-width="2"/>
+                            <rect id="llenadoLiquidoRectangular" x="70" y="150" width="100" height="100" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                            <path id="llenadoLiquidoRectLateral" d="M 170 150 L 190 135 L 190 235 L 170 250 Z" fill="url(#gradienteLiquido)" opacity="0.7"/>
+                            <path id="llenadoLiquidoRectSuperior" d="M 70 150 L 90 135 L 190 135 L 170 150 Z" fill="#4fc3f7" opacity="0.8"/>
+                        </g>
+                        
+                        <g id="tanqueCapsula" style="display:none">
+                            <path d="M 70 90 Q 70 50, 120 50 Q 170 50, 170 90" fill="#e0e0e0" stroke="#757575" stroke-width="3"/>
+                            <ellipse cx="120" cy="90" rx="50" ry="20" fill="#f5f5f5" stroke="#757575" stroke-width="2"/>
+                            
+                            <rect x="70" y="90" width="100" height="120" fill="#f5f5f5" stroke="none"/>
+                            <line x1="70" y1="90" x2="70" y2="210" stroke="#757575" stroke-width="3"/>
+                            <line x1="170" y1="90" x2="170" y2="210" stroke="#757575" stroke-width="3"/>
+                            
+                            <ellipse cx="120" cy="210" rx="50" ry="20" fill="#f5f5f5" stroke="#757575" stroke-width="2"/>
+                            <path d="M 70 210 Q 70 250, 120 250 Q 170 250, 170 210" fill="#e0e0e0" stroke="#757575" stroke-width="3"/>
+                            
+                            <path id="hemisferioLiquidoInferior" d="M 70 210 Q 70 250, 120 250 Q 170 250, 170 210" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                            <ellipse id="baseLiquidoCapsula" cx="120" cy="210" rx="50" ry="20" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                            <rect id="llenadoLiquidoCapsula" x="70" y="210" width="100" height="0" fill="url(#gradienteLiquido)" opacity="0.9"/>
+                            <ellipse id="elipseLiquidoCapsula" cx="120" cy="210" rx="50" ry="20" fill="url(#gradienteLiquido)" opacity="0.9" style="display:none"/>
+                        </g>
+                        
+                        <line id="lineaNivel" x1="50" y1="150" x2="200" y2="150" stroke="#0277bd" stroke-width="2" stroke-dasharray="5,5"/>
+                        <text id="textoNivel" x="205" y="155" font-size="12" fill="#0277bd" font-weight="bold">50%</text>
+                        
+                        <g id="etiquetasDimensiones">
+                            <line id="lineaDiametro" x1="170" y1="50" x2="170" y2="250" stroke="#ff6b6b" stroke-width="1" stroke-dasharray="3,3" style="display:none"/>
+                            <path d="M 170 50 L 165 55 M 170 50 L 175 55" stroke="#ff6b6b" stroke-width="1.5"/>
+                            <path d="M 170 250 L 165 245 M 170 250 L 175 245" stroke="#ff6b6b" stroke-width="1.5"/>
+                            <text x="178" y="155" font-size="10" fill="#ff6b6b" font-weight="bold">h</text>
+                            
+                            <line id="lineaAltura" x1="70" y1="260" x2="170" y2="260" stroke="#4caf50" stroke-width="1" stroke-dasharray="3,3" style="display:none"/>
+                            <path d="M 70 260 L 75 255 M 70 260 L 75 265" stroke="#4caf50" stroke-width="1.5"/>
+                            <path d="M 170 260 L 165 255 M 170 260 L 165 265" stroke="#4caf50" stroke-width="1.5"/>
+                            <text x="115" y="273" font-size="10" fill="#4caf50" font-weight="bold" text-anchor="middle">D</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <div>
+                <div class="resultados">
+                    <h2>Resultados del Cálculo</h2>
+                    
+                    <div class="tarjeta-resultado">
+                        <h3>Volumen Total del Tanque</h3>
+                        <div class="valor-resultado" id="volumenTotal">0.00 m³</div>
+                        <div class="secundario-resultado" id="volumenTotalSec">0.00 L</div>
+                    </div>
+
+                    <div class="tarjeta-resultado">
+                        <h3>Volumen de Líquido Actual</h3>
+                        <div class="valor-resultado" id="volumenLiquido">0.00 m³</div>
+                        <div class="secundario-resultado" id="volumenLiquidoSec">0.00 L</div>
+                    </div>
+
+                    <div class="tarjeta-resultado">
+                        <h3>Espacio Libre (Volumen Vacío)</h3>
+                        <div class="valor-resultado" id="volumenVacio">0.00 m³</div>
+                        <div class="secundario-resultado" id="volumenVacioSec">0.00 L</div>
+                    </div>
+
+                    <div class="tarjeta-resultado">
+                        <h3>Masa Total del Líquido</h3>
+                        <div class="valor-resultado" id="masaTotal">0.00 kg</div>
+                        <div class="secundario-resultado" id="porcentajeLlenado">0.0% llenado</div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Unidad</th>
+                                <th>Volumen Total</th>
+                                <th>Volumen Líquido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>m³</td>
+                                <td id="tablaM3Total">0.00</td>
+                                <td id="tablaM3Liquido">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Litros</td>
+                                <td id="tablaLTotal">0.00</td>
+                                <td id="tablaLLiquido">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Galones (US)</td>
+                                <td id="tablaGalTotal">0.00</td>
+                                <td id="tablaGalLiquido">0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="aplicacion.js"></script>
+</body>
+</html>
